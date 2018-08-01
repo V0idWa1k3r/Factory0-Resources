@@ -1,0 +1,23 @@
+{
+    "result": {
+        "item": "f0-resources:item_prospectors_pick",
+        "data": 0
+    },
+    "pattern": [
+        "CSC",
+        "IS ",
+        " C "
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "C": {
+            "item": "#COBBLE"
+        },
+        "I": {
+            "item": "#IRON"
+        },
+        "S": {
+            "item": "#STICK"
+        }
+    }
+}

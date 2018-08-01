@@ -1,0 +1,7 @@
+{
+    "parent": "item/generated",
+    "textures": {
+        "layer0": "f0-resources:items/drill_head",
+        "layer1": "f0-resources:items/drill_head_overlay"
+    }
+}

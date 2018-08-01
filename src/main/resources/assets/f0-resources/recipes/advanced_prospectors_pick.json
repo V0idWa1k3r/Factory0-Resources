@@ -1,0 +1,23 @@
+{
+    "result": {
+        "item": "f0-resources:item_advanced_prospectors_pick",
+        "data": 0
+    },
+    "pattern": [
+        "GSG",
+        "DS ",
+        " G "
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "G": {
+            "item": "#GOLD"
+        },
+        "D": {
+            "item": "#DIAMOND"
+        },
+        "S": {
+            "item": "#STICK"
+        }
+    }
+}

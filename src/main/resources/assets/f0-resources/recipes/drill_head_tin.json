@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "f0-resources:item_drill_head.f0r.tin",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "IBI",
+    "BSB",
+    "IBI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "I": {
+      "item": "#IRON"
+    },
+    "B": {
+      "item": "#BLOCKTIN"
+    },
+    "S": {
+      "item": "#BLOCKIRON"
+    }
+  }
+}

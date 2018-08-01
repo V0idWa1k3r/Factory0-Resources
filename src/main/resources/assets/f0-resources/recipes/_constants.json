@@ -1,0 +1,254 @@
+[
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "stickWood"
+            }
+        ],
+        "name": "STICK"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "cobblestone"
+            }
+        ],
+        "name": "COBBLE"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "ingotIron"
+            }
+        ],
+        "name": "IRON"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "ingotGold"
+            }
+        ],
+        "name": "GOLD"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "gemDiamond"
+            }
+        ],
+        "name": "DIAMOND"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockGold"
+            }
+        ],
+        "name": "BLOCKGOLD"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockCopper"
+            }
+        ],
+        "name": "BLOCKCOPPER"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockNickel"
+            }
+        ],
+        "name": "BLOCKNICKEL"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockPlatinum"
+            }
+        ],
+        "name": "BLOCKPLATINUM"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockBronze"
+            }
+        ],
+        "name": "BLOCKBRONZE"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockConstantan"
+            }
+        ],
+        "name": "BLOCKCONSTANTAN"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockInvar"
+            }
+        ],
+        "name": "BLOCKINVAR"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockElectricalSteel"
+            }
+        ],
+        "name": "BLOCKELECTRICALSTEEL"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockDarkSteel"
+            }
+        ],
+        "name": "BLOCKDARKSTEEL"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockIron"
+            }
+        ],
+        "name": "BLOCKIRON"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "logWood"
+            }
+        ],
+        "name": "BLOCKWOOD"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockElectrum"
+            }
+        ],
+        "name": "BLOCKELECTRUM"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "stone"
+            }
+        ],
+        "name": "BLOCKSTONE"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockSilver"
+            }
+        ],
+        "name": "BLOCKSILVER"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockVibrantAlloy"
+            }
+        ],
+        "name": "BLOCKVIBRANT"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockLead"
+            }
+        ],
+        "name": "BLOCKLEAD"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockSteel"
+            }
+        ],
+        "name": "BLOCKSTEEL"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockSoularium"
+            }
+        ],
+        "name": "BLOCKSOULARIUM"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockEnderium"
+            }
+        ],
+        "name": "BLOCKENDERIUM"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockDiamond"
+            }
+        ],
+        "name": "BLOCKDIAMOND"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockAluminum"
+            }
+        ],
+        "name": "BLOCKALUMINUM"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "blockTin"
+            }
+        ],
+        "name": "BLOCKTIN"
+    },
+    {
+        "ingredient": [
+            {
+                "type": "forge:ore_dict",
+                "ore": "purpur"
+            }
+        ],
+        "name": "PURPUR"
+    }
+]

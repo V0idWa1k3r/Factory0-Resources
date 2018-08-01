@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "f0-resources:drill_component",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "PIP",
+    "IGI",
+    "PIP"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "I": {
+      "item": "#BLOCKIRON"
+    },
+    "G": {
+      "item": "#BLOCKGOLD"
+    },
+    "P": {
+      "item": "#PURPUR"
+    }
+  }
+}
