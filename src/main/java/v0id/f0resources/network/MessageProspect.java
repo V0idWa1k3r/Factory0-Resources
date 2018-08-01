@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import v0id.f0resources.F0Resources;
+import v0id.f0resources.config.F0RConfig;
 import v0id.f0resources.config.OreEntry;
 
 public class MessageProspect implements IMessage
@@ -87,7 +88,14 @@ public class MessageProspect implements IMessage
                     }
                 }
 
-                player.sendMessage(toSend);
+                if (!F0RConfig.displayProspectorMessageInChat)
+                {
+                    player.sendStatusMessage(toSend, true);
+                }
+                else
+                {
+                    player.sendMessage(toSend);
+                }
             });
 
             return null;

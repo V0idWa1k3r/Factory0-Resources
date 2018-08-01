@@ -42,6 +42,9 @@ public class F0RConfig
     @Config.RangeInt(min = 0)
     public static int oreReducedBy = 1;
 
+    @Config.Comment("Should the prospector's pick display the prospecting message in the chat or in the action bar?")
+    public static boolean displayProspectorMessageInChat = false;
+
     @Mod.EventBusSubscriber(modid = F0RRegistryNames.MODID)
     public static class ConfigHandler
     {
