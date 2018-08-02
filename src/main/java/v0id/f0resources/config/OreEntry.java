@@ -31,6 +31,8 @@ public class OreEntry
         new OreEntry(1, 1, 23652533L, 1, 6000, 0.2, "minecraft:coal_ore", 0, new int[]{ 1, -1 }, false, 0),
         new OreEntry(2, 2, 14662363532L, 1, 3000, 0.3, "minecraft:iron_ore", 0, new int[]{ 1, -1 }, false, 1),
         new OreEntry(3, 3, 346747643L, 1, 1500, 0.4, "minecraft:gold_ore", 0, new int[]{ 1, -1 }, false, 2),
+        new OreEntry(2, 2, 235352311L, 1, 2600, 0.2, "minecraft:redstone_ore", 0, new int[]{ 1, -1 }, false, 2),
+        new OreEntry(2.5, 2.5, 1207510918L, 1, 1400, 0.3, "minecraft:lapis_ore", 0, new int[]{ 1, -1 }, false, 1),
         new OreEntry(5, 5, 23526523525L, 0.9, 1000, 0.5, "minecraft:diamond_ore", 0, new int[]{ 1, -1 }, false, 2),
         new OreEntry(4, 4, 3642553252L, 1, 800, 0.5, "minecraft:emerald_ore", 0, new int[]{ 1, -1 }, false, 2),
         new OreEntry(1, 1, 3205391L, 1, 5000, 0.2, "minecraft:quartz_ore", 0, new int[]{ -1 }, true, 1),
