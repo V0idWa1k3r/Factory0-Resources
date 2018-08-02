@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -93,6 +94,12 @@ public class BlockDrillPart extends Block
 
                 this.isRecursiveBreaking = false;
             }
+        }
+
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof TileDrill && ((TileDrill) tile).isCenter && !((TileDrill) tile).inventory.getStackInSlot(0).isEmpty())
+        {
+            InventoryHelper.spawnItemStack(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), ((TileDrill) tile).inventory.getStackInSlot(0).copy());
         }
 
         super.breakBlock(worldIn, pos, state);
