@@ -1,0 +1,13 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "f0-resources:cube_none",
+		"textures" : {
+            "particle" : "f0-resources:blocks/burner_drill_component"
+		}
+	},
+    "variants": {
+        "normal": [{}],
+        "inventory": [{}]
+    }
+}

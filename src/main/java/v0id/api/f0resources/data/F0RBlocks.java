@@ -9,6 +9,12 @@ public class F0RBlocks
     @GameRegistry.ObjectHolder(F0RRegistryNames.drillComponent)
     public static final Block drillComponent = null;
 
+    @GameRegistry.ObjectHolder(F0RRegistryNames.burnerDrillComponent)
+    public static final Block burnerDrillComponent = null;
+
     @GameRegistry.ObjectHolder(F0RRegistryNames.drillPart)
     public static final Block drillPart = null;
+
+    @GameRegistry.ObjectHolder(F0RRegistryNames.burnerDrillPart)
+    public static final Block burnerDrillPart = null;
 }

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import v0id.f0resources.F0Resources;
-import v0id.f0resources.tile.TileDrill;
+import v0id.f0resources.tile.AbstractDrill;
 
 public class MessageDrillCenter implements IMessage
 {
@@ -49,9 +49,9 @@ public class MessageDrillCenter implements IMessage
                 if (world.isBlockLoaded(pos))
                 {
                     TileEntity tile = world.getTileEntity(pos);
-                    if (tile instanceof TileDrill)
+                    if (tile instanceof AbstractDrill)
                     {
-                        ((TileDrill) tile).isCenter = true;
+                        ((AbstractDrill) tile).isCenter = true;
                     }
                 }
             });

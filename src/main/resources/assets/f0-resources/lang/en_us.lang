@@ -39,6 +39,14 @@ txt.f0r.prospect.4=Found a large sample of
 txt.f0r.prospect.5=Found
 txt.f0r.outputSet=Drill output set to [%d,%d,%d]
 txt.f0r.rfStored=%d/%d RF
+txt.f0r.fuelStored=%d/%d Fuel
+txt.f0r.oreUnits=Found %d Units.
+txt.f0r.prospect.nosuffix.0=Found traces
+txt.f0r.prospect.nosuffix.1=Found a tiny sample
+txt.f0r.prospect.nosuffix.2=Found a small sample
+txt.f0r.prospect.nosuffix.3=Found a medium sample
+txt.f0r.prospect.nosuffix.4=Found a large sample
+txt.f0r.prospect.nosuffix.5=Found
 
 item.f0-resources.item_prospectors_pick.name=Prospector's Pick
 item.f0-resources.item_advanced_prospectors_pick.name=Advanced Prospector's Pick
@@ -64,9 +72,13 @@ item.f0-resources.item.drill_head.f0r.enderium.name=Enderium Drill Head
 item.f0-resources.item.drill_head.f0r.diamond.name=Diamond Drill Head
 item.f0-resources.item.drill_head.f0r.aluminum.name=Aluminum Drill Head
 item.f0-resources.item.drill_head.f0r.tin.name=Tin Drill Head
+item.f0-resources.item_scanner.name=Ore Scanner
+item.f0-resources.item_advanced_scanner.name=Advanced Ore Scanner
 
 tile.f0-resources.drill_component.name=Drill Component
 tile.f0-resources.drill_part.name=Deep Core Drill
+tile.f0-resources.burner_drill_component.name=Burner Drill Component
+tile.f0-resources.burner_drill_part.name=Burner Deep Core Drill
 
 itemGroup.f0-resources=Factory0 - Resources
 

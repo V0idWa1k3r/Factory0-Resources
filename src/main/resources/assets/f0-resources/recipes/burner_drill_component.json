@@ -1,0 +1,27 @@
+{
+  "result": {
+    "item": "f0-resources:burner_drill_component",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "IGI",
+    "FDF",
+    "IGI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "I": {
+      "item": "#BLOCKIRON"
+    },
+    "D": {
+      "item": "#DIAMOND"
+    },
+    "G": {
+        "item": "#GOLD"
+    },
+    "F": {
+        "item": "#FURNACE"
+    }
+  }
+}

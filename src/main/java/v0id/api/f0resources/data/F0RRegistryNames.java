@@ -11,11 +11,15 @@ public class F0RRegistryNames
 
     public static final String
         drillComponent                                                                          = "drill_component",
-        drillPart                                                                               = "drill_part";
+        drillPart                                                                               = "drill_part",
+        burnerDrillComponent                                                                    = "burner_drill_component",
+        burnerDrillPart                                                                         = "burner_drill_part";
 
     public static final String
         prospectorsPick                                                                         = "item_prospectors_pick",
-        advancedProspectorsPick                                                                 = "item_advanced_prospectors_pick";
+        advancedProspectorsPick                                                                 = "item_advanced_prospectors_pick",
+        scanner                                                                                 = "item_scanner",
+        advancedScanner                                                                         = "item_advanced_scanner";
 
     private static final Map<String, ResourceLocation> cache = Maps.newHashMap();
 

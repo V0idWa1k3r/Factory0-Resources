@@ -1,5 +1,10 @@
 package v0id.f0resources;
 
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumFacing;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
@@ -8,8 +13,10 @@ import net.minecraftforge.fml.relauncher.CoreModManager;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import v0id.api.f0resources.capability.IFuelHandler;
 import v0id.api.f0resources.data.F0RRegistryNames;
 import v0id.api.f0resources.world.F0RWorldCapability;
+import v0id.f0resources.capability.FuelHandler;
 import v0id.f0resources.config.DrillMaterialEntry;
 import v0id.f0resources.config.OreEntry;
 import v0id.f0resources.handler.GuiHandler;
@@ -18,6 +25,7 @@ import v0id.f0resources.proxy.IProxy;
 import v0id.f0resources.registry.F0ROreDictRegistry;
 import v0id.f0resources.server.CommandF0R;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -25,6 +33,25 @@ import java.util.stream.Collectors;
 @Mod(modid = F0RRegistryNames.MODID, useMetadata = true, certificateFingerprint = "43787005475f132f5fc1e851b9247fda75ed5d52")
 public class F0Resources
 {
+    static
+    {
+        CapabilityManager.INSTANCE.register(IFuelHandler.class, new Capability.IStorage<IFuelHandler>()
+        {
+            @Nullable
+            @Override
+            public NBTBase writeNBT(Capability<IFuelHandler> capability, IFuelHandler instance, EnumFacing side)
+            {
+                return instance.serializeNBT();
+            }
+
+            @Override
+            public void readNBT(Capability<IFuelHandler> capability, IFuelHandler instance, EnumFacing side, NBTBase nbt)
+            {
+                instance.deserializeNBT((NBTTagCompound) nbt);
+            }
+        }, FuelHandler::new);
+    }
+
     @Mod.Instance(F0RRegistryNames.MODID)
     public static F0Resources instance;
 

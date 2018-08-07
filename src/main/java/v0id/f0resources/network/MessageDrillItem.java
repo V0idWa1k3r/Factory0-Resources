@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import v0id.f0resources.F0Resources;
-import v0id.f0resources.tile.TileDrill;
+import v0id.f0resources.tile.AbstractDrill;
 
 public class MessageDrillItem implements IMessage
 {
@@ -54,9 +54,9 @@ public class MessageDrillItem implements IMessage
                 if (world.isBlockLoaded(message.at))
                 {
                     TileEntity tile = world.getTileEntity(message.at);
-                    if (tile instanceof TileDrill)
+                    if (tile instanceof AbstractDrill)
                     {
-                        ((TileDrill) tile).inventory.setStackInSlot(0, message.stack);
+                        ((AbstractDrill) tile).setDrillHead(message.stack);
                     }
                 }
             });

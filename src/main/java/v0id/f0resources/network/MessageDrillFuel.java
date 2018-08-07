@@ -8,28 +8,28 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import v0id.f0resources.F0Resources;
-import v0id.f0resources.tile.AbstractDrill;
+import v0id.f0resources.tile.TileBurnerDrill;
 
-public class MessageDrillRotating implements IMessage
+public class MessageDrillFuel implements IMessage
 {
     public BlockPos at;
-    public boolean isRotating;
+    public boolean hasFuel;
 
-    public MessageDrillRotating()
+    public MessageDrillFuel()
     {
     }
 
-    public MessageDrillRotating(BlockPos at, boolean b)
+    public MessageDrillFuel(BlockPos at, boolean b)
     {
         this.at = at;
-        this.isRotating = b;
+        this.hasFuel = b;
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     {
         this.at = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
-        this.isRotating = buf.readBoolean();
+        this.hasFuel = buf.readBoolean();
     }
 
     @Override
@@ -38,13 +38,13 @@ public class MessageDrillRotating implements IMessage
         buf.writeInt(this.at.getX());
         buf.writeInt(this.at.getY());
         buf.writeInt(this.at.getZ());
-        buf.writeBoolean(this.isRotating);
+        buf.writeBoolean(this.hasFuel);
     }
 
-    public static class Handler implements IMessageHandler<MessageDrillRotating, IMessage>
+    public static class Handler implements IMessageHandler<MessageDrillFuel, IMessage>
     {
         @Override
-        public IMessage onMessage(MessageDrillRotating message, MessageContext ctx)
+        public IMessage onMessage(MessageDrillFuel message, MessageContext ctx)
         {
             F0Resources.proxy.getContextListener().addScheduledTask(() ->
             {
@@ -53,9 +53,9 @@ public class MessageDrillRotating implements IMessage
                 if (world.isBlockLoaded(pos))
                 {
                     TileEntity tile = world.getTileEntity(pos);
-                    if (tile instanceof AbstractDrill)
+                    if (tile instanceof TileBurnerDrill)
                     {
-                        ((AbstractDrill) tile).isRotating = message.isRotating;
+                        ((TileBurnerDrill) tile).hasFuel = message.hasFuel;
                     }
                 }
             });
