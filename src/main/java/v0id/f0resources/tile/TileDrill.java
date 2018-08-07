@@ -1,47 +1,31 @@
 package v0id.f0resources.tile;
 
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
-import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTUtil;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ITickable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.IForgeRegistry;
-import v0id.api.f0resources.world.IChunkData;
-import v0id.api.f0resources.world.IF0RWorld;
-import v0id.api.f0resources.world.IOreData;
-import v0id.f0resources.F0Resources;
-import v0id.f0resources.config.DrillMaterialEntry;
 import v0id.f0resources.config.F0RConfig;
-import v0id.f0resources.item.ItemDrillHead;
 import v0id.f0resources.network.F0RNetwork;
-import v0id.f0resources.util.OreItem;
 
 import javax.annotation.Nullable;
-import java.util.List;
-import java.util.stream.StreamSupport;
 
-public class TileDrill extends TileEntity implements ITickable
+public class TileDrill extends AbstractDrill implements ITickable
 {
     public static final IForgeRegistry<Block> BLOCK_REGISTRY = GameRegistry.findRegistry(Block.class);
-
-    public BlockPos centerPos = BlockPos.ORIGIN;
-    public boolean isCenter = false;
     public EnergyStorage energyStorage = new EnergyStorage(F0RConfig.drillEnergy);
     public ItemStackHandler inventory = new ItemStackHandler(1)
     {
@@ -55,63 +39,7 @@ public class TileDrill extends TileEntity implements ITickable
         }
     };
 
-    public BlockPos outputPos = BlockPos.ORIGIN;
-    public boolean isRotating;
-    public float progress;
-
     @Override
-    public void update()
-    {
-        if (this.isCenter)
-        {
-            if (!this.inventory.getStackInSlot(0).isEmpty() && this.inventory.getStackInSlot(0).getItem() instanceof ItemDrillHead)
-            {
-                if (this.world.isRemote)
-                {
-                    if (this.isRotating)
-                    {
-                        this.world.spawnParticle(EnumParticleTypes.CRIT, this.pos.getX() + 0.5F + this.world.rand.nextDouble() - this.world.rand.nextDouble(), this.pos.getY(), this.pos.getZ() + 0.5F + this.world.rand.nextDouble() - this.world.rand.nextDouble(), this.world.rand.nextDouble() - this.world.rand.nextDouble(), 0.5F, this.world.rand.nextDouble() - this.world.rand.nextDouble());
-                    }
-                }
-                else
-                {
-                    if (this.checkBase())
-                    {
-                        if (this.energyStorage.extractEnergy(F0RConfig.drillEnergyConsumption, true) >= F0RConfig.drillEnergyConsumption)
-                        {
-                            this.energyStorage.extractEnergy(F0RConfig.drillEnergyConsumption, false);
-                            this.setRotating(true);
-                            if (this.outputPos != BlockPos.ORIGIN)
-                            {
-                                this.progress += ((ItemDrillHead) this.inventory.getStackInSlot(0).getItem()).material.speed;
-                                if (this.progress >= F0RConfig.drillRequiredProgress)
-                                {
-                                    this.progress -= F0RConfig.drillRequiredProgress;
-                                    this.tryProduceResource(((ItemDrillHead) this.inventory.getStackInSlot(0).getItem()).material);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            this.setRotating(false);
-                        }
-                    }
-                    else
-                    {
-                        this.setRotating(false);
-                    }
-                }
-            }
-            else
-            {
-                if (!this.world.isRemote)
-                {
-                    this.setRotating(false);
-                }
-            }
-        }
-    }
-
     public boolean checkBase()
     {
         Block block = BLOCK_REGISTRY.getValue(new ResourceLocation(F0RConfig.requiredBlock));
@@ -129,143 +57,45 @@ public class TileDrill extends TileEntity implements ITickable
         return true;
     }
 
-    public void tryProduceResource(DrillMaterialEntry entry)
+    @Override
+    public boolean consumePower(boolean simulate)
     {
-        ChunkPos cpos = new ChunkPos(this.getPos());
-        IF0RWorld if0RWorld = IF0RWorld.of(this.world);
-        IChunkData data = if0RWorld.getLoadedChunkData(cpos);
-        if (data != null)
-        {
-            if (data.getSize() > 0)
-            {
-                List<OreItem> weightedList = Lists.newArrayList();
-                StreamSupport.stream(data.spliterator(), false).forEach(e -> weightedList.add(new OreItem(e)));
-                OreItem oreItem = WeightedRandom.getRandomItem(this.world.rand, weightedList);
-                IOreData oreData = oreItem.data;
-                while (oreData.getTierReq() > entry.tier)
-                {
-                    weightedList.remove(oreItem);
-                    if (weightedList.size() == 0)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        if (weightedList.size() == 1)
-                        {
-                            oreItem = weightedList.get(0);
-                        }
-                        else
-                        {
-                            oreItem = WeightedRandom.getRandomItem(this.world.rand, weightedList);
-                        }
-
-                        oreData = oreItem.data;
-                    }
-                }
-
-                ItemStack result = oreData.createOreItem(F0RConfig.oreResultSize);
-                TileEntity tile = this.world.getTileEntity(this.outputPos);
-                EnumFacing facing = EnumFacing.getFacingFromVector(this.pos.getX() - this.centerPos.getX(), 0, this.pos.getZ() - this.centerPos.getZ());
-                boolean inserted = true;
-                if (tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing))
-                {
-                    IItemHandler handler = tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
-                    if(!ItemHandlerHelper.insertItem(handler, result, true).isEmpty())
-                    {
-                        inserted = false;
-                    }
-                    else
-                    {
-                        ItemHandlerHelper.insertItem(handler, result, false);
-                    }
-                }
-                else
-                {
-                    if (tile == null)
-                    {
-                        BlockPos at = BlockPos.ORIGIN;
-                        if (this.world.isAirBlock(this.outputPos))
-                        {
-                            at = this.outputPos;
-                        }
-                        else
-                        {
-                            at = this.outputPos.up();
-                        }
-
-                        if (this.world.isAirBlock(at) && at != BlockPos.ORIGIN)
-                        {
-                            InventoryHelper.spawnItemStack(this.world, at.getX(), at.getY(), at.getZ(), result);
-                        }
-                        else
-                        {
-                            inserted = false;
-                        }
-                    }
-                }
-
-                if (inserted)
-                {
-                    if (F0RConfig.reduceOreInTheChunk)
-                    {
-                        oreData.setOreAmount(oreData.getOreAmount() - F0RConfig.oreReducedBy);
-                        if (oreData.getOreAmount() == 0)
-                        {
-                            data.removeOreData(oreData);
-                        }
-                    }
-
-                    if (this.inventory.getStackInSlot(0).getMaxDamage() != 0)
-                    {
-                        this.inventory.getStackInSlot(0).setItemDamage(this.inventory.getStackInSlot(0).getItemDamage() + F0RConfig.drillHeadDamage);
-                        if (this.inventory.getStackInSlot(0).getItemDamage() >= this.inventory.getStackInSlot(0).getMaxDamage())
-                        {
-                            this.inventory.setStackInSlot(0, ItemStack.EMPTY);
-                        }
-                    }
-                }
-            }
-        }
-        else
-        {
-            F0Resources.modLogger.warn("Unable to get chunk data at {}!", cpos.toString());
-        }
+        return this.energyStorage.extractEnergy(F0RConfig.drillEnergyConsumption, simulate) >= F0RConfig.drillEnergyConsumption;
     }
 
-    public void setRotating(boolean b)
+    @Override
+    public void spawnWorkingParticles()
     {
-        if (this.isRotating != b)
-        {
-            this.isRotating = b;
-            F0RNetwork.sendDrillRotating(this);
-        }
+        this.world.spawnParticle(EnumParticleTypes.CRIT, this.pos.getX() + 0.5F + this.world.rand.nextDouble() - this.world.rand.nextDouble(), this.pos.getY(), this.pos.getZ() + 0.5F + this.world.rand.nextDouble() - this.world.rand.nextDouble(), this.world.rand.nextDouble() - this.world.rand.nextDouble(), 0.5F, this.world.rand.nextDouble() - this.world.rand.nextDouble());
+    }
+
+    @Override
+    public ItemStack getDrillHead()
+    {
+        return this.inventory.getStackInSlot(0);
+    }
+
+    @Override
+    public void setDrillHead(ItemStack is)
+    {
+        this.inventory.setStackInSlot(0, is);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound)
     {
         super.readFromNBT(compound);
-        this.centerPos = NBTUtil.getPosFromTag(compound.getCompoundTag("centerPos"));
-        this.outputPos = NBTUtil.getPosFromTag(compound.getCompoundTag("outputPos"));
-        this.isCenter = compound.getBoolean("isCenter");
+        this.energyStorage.extractEnergy(Integer.MAX_VALUE, false);
         this.energyStorage.receiveEnergy(compound.getInteger("energy"), false);
         this.inventory.deserializeNBT(compound.getCompoundTag("inventory"));
-        this.isRotating = compound.getBoolean("rotating");
-        this.progress = compound.getFloat("progress");
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound)
     {
         NBTTagCompound ret = super.writeToNBT(compound);
-        ret.setTag("centerPos", NBTUtil.createPosTag(this.centerPos));
-        ret.setTag("outputPos", NBTUtil.createPosTag(this.outputPos));
-        ret.setBoolean("isCenter", this.isCenter);
         ret.setInteger("energy", this.energyStorage.getEnergyStored());
         ret.setTag("inventory", this.inventory.serializeNBT());
-        ret.setBoolean("rotating", this.isRotating);
-        ret.setFloat("progress", this.progress);
         return ret;
     }
 
