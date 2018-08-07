@@ -13,9 +13,9 @@ import v0id.api.f0resources.data.F0RRegistryNames;
 import v0id.f0resources.network.F0RNetwork;
 import v0id.f0resources.tile.TileDrill;
 
-public class BlockDrillComponent extends Block
+public class BlockElectricalDrillComponent extends Block
 {
-    public BlockDrillComponent()
+    public BlockElectricalDrillComponent()
     {
         super(Material.IRON);
         this.setRegistryName(F0RRegistryNames.asLocation(F0RRegistryNames.drillComponent));

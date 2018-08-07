@@ -7,15 +7,16 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import v0id.api.f0resources.data.F0RBlocks;
-import v0id.api.f0resources.data.F0RCreativeTabs;
 import v0id.api.f0resources.data.F0RRegistryNames;
 import v0id.f0resources.F0Resources;
 import v0id.f0resources.tile.TileDrill;
@@ -23,16 +24,16 @@ import v0id.f0resources.tile.TileDrill;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockDrillPart extends Block
+public class BlockElectricalDrillPart extends Block
 {
-    public BlockDrillPart()
+    public BlockElectricalDrillPart()
     {
         super(Material.IRON);
         this.setRegistryName(F0RRegistryNames.asLocation(F0RRegistryNames.drillPart));
         this.setUnlocalizedName(this.getRegistryName().toString().replace(':', '.'));
         this.setHardness(3);
         this.setResistance(10);
-        this.setCreativeTab(F0RCreativeTabs.tabF0R);
+        this.setCreativeTab(null);
     }
 
     @SuppressWarnings("deprecation")
@@ -68,6 +69,12 @@ public class BlockDrillPart extends Block
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
         return Item.getItemFromBlock(F0RBlocks.drillComponent);
+    }
+
+    @Override
+    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player)
+    {
+        return new ItemStack(F0RBlocks.drillComponent, 1, 0);
     }
 
     @Override
