@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "f0-resources:item_scanner",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "IER",
+    "DBD",
+    "IGI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+        "item": "minecraft:end_rod"
+    },
+    "B": {
+        "item": "#BLOCKREDSTONE"
+    },
+    "E": {
+        "item": "minecraft:ender_eye"
+    },
+    "D": {
+        "item": "#DIAMOND"
+    },
+    "I": {
+        "item": "#IRON"
+    },
+    "G": {
+        "item": "#GOLD"
+    }
+  }
+}

@@ -11,4 +11,10 @@ public class F0RItems
 
     @GameRegistry.ObjectHolder(F0RRegistryNames.advancedProspectorsPick)
     public static final Item advancedProspectorsPick = null;
+
+    @GameRegistry.ObjectHolder(F0RRegistryNames.scanner)
+    public static final Item scanner = null;
+
+    @GameRegistry.ObjectHolder(F0RRegistryNames.advancedScanner)
+    public static final Item advancedScanner = null;
 }

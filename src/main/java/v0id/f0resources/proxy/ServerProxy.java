@@ -1,6 +1,7 @@
 package v0id.f0resources.proxy;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.dedicated.DedicatedServer;
 import net.minecraft.util.IThreadListener;
@@ -40,5 +41,11 @@ public class ServerProxy implements IProxy
         }
 
         return 10;
+    }
+
+    @Override
+    public void addToast(ItemStack icon, String langKey)
+    {
+
     }
 }

@@ -1,0 +1,33 @@
+{
+  "result": {
+    "item": "f0-resources:item_advanced_scanner",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "DNR",
+    "PGP",
+    "DED"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "R": {
+        "item": "minecraft:end_rod"
+    },
+    "P": {
+        "item": "#PRISMARINECRYSTAL"
+    },
+    "N": {
+        "item": "minecraft:nether_star"
+    },
+    "D": {
+        "item": "#BLOCKDIAMOND"
+    },
+    "E": {
+        "item": "#BLOCKREDSTONE"
+    },
+    "G": {
+        "item": "#BLOCKGOLD"
+    }
+  }
+}

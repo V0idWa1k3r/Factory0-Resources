@@ -45,6 +45,15 @@ public class F0RConfig
     @Config.Comment("Should the prospector's pick display the prospecting message in the chat or in the action bar?")
     public static boolean displayProspectorMessageInChat = false;
 
+    @Config.Comment("Should the multiplier of 0 to the progress be allowed in the ores.json? Set this to true if you are configuring ore entries to have a 0 progress multiplier manually.")
+    public static boolean allowZeroOreProgressMultiplier = false;
+
+    @Config.Comment("The maximum amount of FE energy the scanner is able to hold")
+    public static int scannerMaxEnergy = 100000;
+
+    @Config.Comment("How much energy the scanner uses per scan")
+    public static int scannerEnergyCost = 1000;
+
     @Mod.EventBusSubscriber(modid = F0RRegistryNames.MODID)
     public static class ConfigHandler
     {
