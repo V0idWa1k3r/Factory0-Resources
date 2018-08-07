@@ -142,7 +142,7 @@ public abstract class AbstractDrill extends TileEntity implements ITickable
 
                 this.minedOre = oreData.createOreItem(F0RConfig.oreResultSize);
                 OreEntry oreEntry = OreEntry.findByItem(this.minedOre.getItem(), this.minedOre.getMetadata());
-                this.minedMultiplier = oreEntry == null ? 1 : oreEntry.pregressMultiplier;
+                this.minedMultiplier = oreEntry == null ? 1 : oreEntry.progressMultiplier;
             }
         }
     }

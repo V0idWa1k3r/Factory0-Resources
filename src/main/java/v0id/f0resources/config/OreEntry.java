@@ -57,7 +57,7 @@ public class OreEntry
     public int[] dimensionBlacklist;
     public boolean isBlacklistWhitelist;
     public int tierReq;
-    public float pregressMultiplier = 1F;
+    public float progressMultiplier = 1F;
 
     public transient boolean valid = true;
 
@@ -84,9 +84,9 @@ public class OreEntry
     public void validate()
     {
         this.valid = GameRegistry.findRegistry(Item.class).containsKey(new ResourceLocation(this.oreID));
-        if (!F0RConfig.allowZeroOreProgressMultiplier && this.pregressMultiplier <= 0.0001F)
+        if (!F0RConfig.allowZeroOreProgressMultiplier && this.progressMultiplier <= 0.0001F)
         {
-            this.pregressMultiplier = 1F;
+            this.progressMultiplier = 1F;
         }
     }
 
