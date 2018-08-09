@@ -37,6 +37,7 @@ public class ItemScanner extends Item
         this.setRegistryName(advanced ? F0RRegistryNames.asLocation(F0RRegistryNames.advancedScanner) : F0RRegistryNames.asLocation(F0RRegistryNames.scanner));
         this.setUnlocalizedName(this.getRegistryName().toString().replace(':', '.'));
         this.setMaxDamage(100);
+        this.setMaxStackSize(1);
         this.setCreativeTab(F0RCreativeTabs.tabF0R);
     }
 

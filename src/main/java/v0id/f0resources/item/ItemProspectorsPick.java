@@ -26,6 +26,7 @@ public class ItemProspectorsPick extends Item
         this.setRegistryName(advanced ? F0RRegistryNames.asLocation(F0RRegistryNames.advancedProspectorsPick) : F0RRegistryNames.asLocation(F0RRegistryNames.prospectorsPick));
         this.setUnlocalizedName(this.getRegistryName().toString().replace(':', '.'));
         this.setMaxDamage(advanced ? 1562 : 132);
+        this.setMaxStackSize(1);
         this.setCreativeTab(F0RCreativeTabs.tabF0R);
     }
 
