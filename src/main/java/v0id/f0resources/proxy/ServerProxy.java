@@ -48,4 +48,9 @@ public class ServerProxy implements IProxy
     {
 
     }
+
+    @Override
+    public void storeSeed(long seed)
+    {
+    }
 }

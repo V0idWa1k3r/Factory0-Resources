@@ -47,6 +47,8 @@ txt.f0r.prospect.nosuffix.2=Found a small sample
 txt.f0r.prospect.nosuffix.3=Found a medium sample
 txt.f0r.prospect.nosuffix.4=Found a large sample
 txt.f0r.prospect.nosuffix.5=Found
+txr.f0r.youAreHere=You Are Here
+txr.f0r.visualizer_amt=Ore: %d/%d
 
 item.f0-resources.item_prospectors_pick.name=Prospector's Pick
 item.f0-resources.item_advanced_prospectors_pick.name=Advanced Prospector's Pick
@@ -74,6 +76,7 @@ item.f0-resources.item.drill_head.f0r.aluminum.name=Aluminum Drill Head
 item.f0-resources.item.drill_head.f0r.tin.name=Tin Drill Head
 item.f0-resources.item_scanner.name=Ore Scanner
 item.f0-resources.item_advanced_scanner.name=Advanced Ore Scanner
+item.f0-resources.item_ore_visualizer.name=Seismic Reader
 
 tile.f0-resources.drill_component.name=Drill Component
 tile.f0-resources.drill_part.name=Deep Core Drill

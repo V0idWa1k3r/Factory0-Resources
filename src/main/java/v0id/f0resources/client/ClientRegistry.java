@@ -37,6 +37,7 @@ public class ClientRegistry
         ItemDrillHead.allDrillHeads.stream().forEach(e -> registerStaticModel(e, new ModelResourceLocation(F0RRegistryNames.asLocation("item_drill_head"), "inventory")));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(F0RBlocks.drillComponent), 0, new ModelResourceLocation(F0RBlocks.drillComponent.getRegistryName(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(F0RBlocks.burnerDrillComponent), 0, new ModelResourceLocation(F0RBlocks.burnerDrillComponent.getRegistryName(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(F0RItems.oreVisualizer, 0, new ModelResourceLocation(F0RItems.oreVisualizer.getRegistryName(), "inventory"));
     }
 
     public static void registerRenderers()

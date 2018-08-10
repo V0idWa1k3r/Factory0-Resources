@@ -7,8 +7,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
 import v0id.f0resources.client.gui.GuiBurnerDrill;
 import v0id.f0resources.client.gui.GuiDrill;
+import v0id.f0resources.client.gui.GuiOreVisualizer;
 import v0id.f0resources.inventory.ContainerBurnerDrill;
 import v0id.f0resources.inventory.ContainerDrill;
+import v0id.f0resources.inventory.ContainerOreVisualizer;
 import v0id.f0resources.tile.TileBurnerDrill;
 import v0id.f0resources.tile.TileDrill;
 
@@ -32,6 +34,11 @@ public class GuiHandler implements IGuiHandler
             {
                 return new ContainerBurnerDrill(player.inventory, (TileBurnerDrill) tile);
             }
+
+            case 2:
+            {
+                return new ContainerOreVisualizer(player.inventory);
+            }
         }
 
         return null;
@@ -41,7 +48,7 @@ public class GuiHandler implements IGuiHandler
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z)
     {
-        TileEntity tile = world.getTileEntity(new BlockPos(x, y, z));
+        TileEntity tile = world.isBlockLoaded(new BlockPos(x, y, z)) ? world.getTileEntity(new BlockPos(x, y, z)) : null;
         switch (ID)
         {
             case 0:
@@ -52,6 +59,11 @@ public class GuiHandler implements IGuiHandler
             case 1:
             {
                 return new GuiBurnerDrill(player.inventory, (TileBurnerDrill) tile);
+            }
+
+            case 2:
+            {
+                return new GuiOreVisualizer(player.inventory);
             }
         }
 

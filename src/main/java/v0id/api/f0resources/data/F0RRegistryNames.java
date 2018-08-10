@@ -19,7 +19,8 @@ public class F0RRegistryNames
         prospectorsPick                                                                         = "item_prospectors_pick",
         advancedProspectorsPick                                                                 = "item_advanced_prospectors_pick",
         scanner                                                                                 = "item_scanner",
-        advancedScanner                                                                         = "item_advanced_scanner";
+        advancedScanner                                                                         = "item_advanced_scanner",
+        oreVisualizer                                                                           = "item_ore_visualizer";
 
     private static final Map<String, ResourceLocation> cache = Maps.newHashMap();
 

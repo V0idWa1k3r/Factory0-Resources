@@ -17,4 +17,6 @@ public interface IProxy extends ILifecycleListener
     int getViewDistance();
 
     void addToast(ItemStack icon, String langKey);
+
+    void storeSeed(long seed);
 }

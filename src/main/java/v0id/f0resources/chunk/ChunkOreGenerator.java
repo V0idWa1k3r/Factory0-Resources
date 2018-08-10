@@ -19,11 +19,16 @@ public class ChunkOreGenerator
 
     public static void generateData(World world, ChunkPos pos, ChunkData data)
     {
+        generateData(world.getSeed(), world.provider.getDimension(), pos, data);
+    }
+
+    public static void generateData(long seed, int dimension, ChunkPos pos, ChunkData data)
+    {
         for (OreEntry oreEntry : OreEntry.allEntries)
         {
-            if (oreEntry.valid && oreEntry.canGenerateIn(world.provider.getDimension()))
+            if (oreEntry.valid && oreEntry.canGenerateIn(dimension))
             {
-                RANDOM.setSeed(world.getSeed() | oreEntry.seed);
+                RANDOM.setSeed(seed | oreEntry.seed);
                 double offsetX = RANDOM.nextDouble();
                 double offsetZ = RANDOM.nextDouble();
                 offsetX += (double) pos.x / F0RConfig.noiseChunkDivider * oreEntry.stretchX;

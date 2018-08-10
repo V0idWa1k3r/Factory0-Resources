@@ -28,6 +28,7 @@ public class F0RNetwork
         WRAPPER.registerMessage(MessageProspect.Handler.class, MessageProspect.class, 3, Side.CLIENT);
         WRAPPER.registerMessage(MessageDrillFuel.Handler.class, MessageDrillFuel.class, 4, Side.CLIENT);
         WRAPPER.registerMessage(MessageScan.Handler.class, MessageScan.class, 5, Side.CLIENT);
+        WRAPPER.registerMessage(MessageWorldSeed.Handler.class, MessageWorldSeed.class, 6, Side.CLIENT);
     }
 
     public static void loadClass()
@@ -64,5 +65,10 @@ public class F0RNetwork
     {
         ChunkData data = (ChunkData) IF0RWorld.of(to.world).getLoadedChunkData(new ChunkPos(to.getPosition()));
         WRAPPER.sendTo(new MessageScan(data == null ? new ChunkData() : data, advanced), (EntityPlayerMP) to);
+    }
+
+    public static void sendSeed(EntityPlayer to)
+    {
+        WRAPPER.sendTo(new MessageWorldSeed(to.world.getSeed()), (EntityPlayerMP) to);
     }
 }

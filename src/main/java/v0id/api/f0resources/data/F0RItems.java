@@ -17,4 +17,7 @@ public class F0RItems
 
     @GameRegistry.ObjectHolder(F0RRegistryNames.advancedScanner)
     public static final Item advancedScanner = null;
+
+    @GameRegistry.ObjectHolder(F0RRegistryNames.oreVisualizer)
+    public static final Item oreVisualizer = null;
 }

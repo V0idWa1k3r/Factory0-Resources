@@ -7,6 +7,7 @@ import net.minecraft.util.IThreadListener;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import v0id.f0resources.client.ClientRegistry;
+import v0id.f0resources.client.gui.GuiOreVisualizer;
 import v0id.f0resources.client.toast.OreToast;
 
 public class ClientProxy implements IProxy
@@ -39,6 +40,12 @@ public class ClientProxy implements IProxy
     public void addToast(ItemStack icon, String langKey)
     {
         Minecraft.getMinecraft().getToastGui().add(new OreToast(icon, langKey));
+    }
+
+    @Override
+    public void storeSeed(long seed)
+    {
+        GuiOreVisualizer.worldSeed = seed;
     }
 
     @Override
