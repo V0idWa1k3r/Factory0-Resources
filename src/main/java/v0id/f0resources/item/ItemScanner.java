@@ -2,6 +2,7 @@ package v0id.f0resources.item;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -73,6 +74,18 @@ public class ItemScanner extends Item
         if (stack.getItemDamage() > 0)
         {
             stack.setItemDamage(stack.getItemDamage() - 1);
+        }
+    }
+
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
+    {
+        if (tab == this.getCreativeTab())
+        {
+            super.getSubItems(tab, items);
+            ItemStack is = new ItemStack(this, 1, 0);
+            is.getCapability(CapabilityEnergy.ENERGY, null).receiveEnergy(Integer.MAX_VALUE, false);
+            items.add(is);
         }
     }
 
