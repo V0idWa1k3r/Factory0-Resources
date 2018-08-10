@@ -54,6 +54,10 @@ public class F0RConfig
     @Config.Comment("How much energy the scanner uses per scan")
     public static int scannerEnergyCost = 1000;
 
+    @Config.Comment("Should Factory0 use efficient FastTESR rendering system for it's tiles or the standard one? If you are having weird rendering glitches with the FastTESRs on try setting this to false.")
+    @Config.RequiresMcRestart
+    public static boolean useFastTESR = true;
+
     @Mod.EventBusSubscriber(modid = F0RRegistryNames.MODID)
     public static class ConfigHandler
     {

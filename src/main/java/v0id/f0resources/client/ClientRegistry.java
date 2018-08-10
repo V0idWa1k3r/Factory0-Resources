@@ -15,7 +15,10 @@ import v0id.api.f0resources.data.F0RBlocks;
 import v0id.api.f0resources.data.F0RItems;
 import v0id.api.f0resources.data.F0RRegistryNames;
 import v0id.f0resources.client.render.tile.TESRBurnerDrill;
+import v0id.f0resources.client.render.tile.TESRBurnerDrillSlow;
 import v0id.f0resources.client.render.tile.TESRDrill;
+import v0id.f0resources.client.render.tile.TESRDrillSlow;
+import v0id.f0resources.config.F0RConfig;
 import v0id.f0resources.item.ItemDrillHead;
 import v0id.f0resources.tile.TileBurnerDrill;
 import v0id.f0resources.tile.TileDrill;
@@ -38,8 +41,8 @@ public class ClientRegistry
 
     public static void registerRenderers()
     {
-        net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(TileDrill.class, new TESRDrill());
-        net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(TileBurnerDrill.class, new TESRBurnerDrill());
+        net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(TileDrill.class, F0RConfig.useFastTESR ? new TESRDrill() : new TESRDrillSlow());
+        net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(TileBurnerDrill.class, F0RConfig.useFastTESR ? new TESRBurnerDrill() : new TESRBurnerDrillSlow());
     }
 
     public static void registerColours()

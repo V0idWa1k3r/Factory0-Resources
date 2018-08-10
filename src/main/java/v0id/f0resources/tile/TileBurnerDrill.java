@@ -191,7 +191,7 @@ public class TileBurnerDrill extends AbstractDrill implements ITickable
     @Override
     public boolean hasFastRenderer()
     {
-        return true;
+        return F0RConfig.useFastTESR;
     }
 
     @Override

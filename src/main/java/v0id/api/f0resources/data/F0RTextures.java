@@ -7,4 +7,8 @@ public class F0RTextures
     public static final ResourceLocation
             guiDrill                                                                             = new ResourceLocation(F0RRegistryNames.MODID, "textures/gui/drill.png"),
             guiBurnerDrill                                                                       = new ResourceLocation(F0RRegistryNames.MODID, "textures/gui/burner_drill.png");
+
+    public static final ResourceLocation
+            textureDrill                                                                         = new ResourceLocation(F0RRegistryNames.MODID, "textures/blocks/drill.png"),
+            textureBurnerDrill                                                                   = new ResourceLocation(F0RRegistryNames.MODID, "textures/blocks/burner_drill.png");
 }
