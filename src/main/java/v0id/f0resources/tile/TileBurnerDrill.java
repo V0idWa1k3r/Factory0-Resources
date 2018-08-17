@@ -1,5 +1,6 @@
 package v0id.f0resources.tile;
 
+import joptsimple.internal.Strings;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,12 +18,15 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.IForgeRegistry;
+import org.apache.commons.lang3.ArrayUtils;
 import v0id.api.f0resources.capability.CapabilityFuelHandler;
 import v0id.f0resources.capability.FuelHandler;
 import v0id.f0resources.config.F0RConfig;
 import v0id.f0resources.network.F0RNetwork;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class TileBurnerDrill extends AbstractDrill implements ITickable
 {
@@ -45,8 +49,8 @@ public class TileBurnerDrill extends AbstractDrill implements ITickable
     @Override
     public boolean checkBase()
     {
-        Block block = BLOCK_REGISTRY.getValue(new ResourceLocation(F0RConfig.requiredBlock));
-        return this.world.getBlockState(this.pos.down()).getBlock() == block && this.world.getBlockState(this.pos.down().south()).getBlock() == block && this.world.getBlockState(this.pos.down().east()).getBlock() == block && this.world.getBlockState(this.pos.down().south().east()).getBlock() == block;
+        Block[] block = Arrays.stream(F0RConfig.requiredBlocks).filter(s -> !Strings.isNullOrEmpty(s)).map(ResourceLocation::new).map(BLOCK_REGISTRY::getValue).filter(Objects::nonNull).toArray(Block[]::new);
+        return ArrayUtils.contains(block, this.world.getBlockState(this.pos.down()).getBlock()) && ArrayUtils.contains(block,this.world.getBlockState(this.pos.down().south()).getBlock()) && ArrayUtils.contains(block,this.world.getBlockState(this.pos.down().east()).getBlock()) && ArrayUtils.contains(block,this.world.getBlockState(this.pos.down().south().east()).getBlock());
     }
 
     @Override

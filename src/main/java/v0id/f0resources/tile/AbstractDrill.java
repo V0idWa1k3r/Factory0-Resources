@@ -55,7 +55,7 @@ public abstract class AbstractDrill extends TileEntity implements ITickable
                 }
                 else
                 {
-                    if (this.checkBase())
+                    if (F0RConfig.drillsWorkAnywhere || this.checkBase())
                     {
                         if (this.consumePower(true))
                         {

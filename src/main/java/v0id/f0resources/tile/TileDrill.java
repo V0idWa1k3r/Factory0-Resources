@@ -1,5 +1,6 @@
 package v0id.f0resources.tile;
 
+import joptsimple.internal.Strings;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -18,10 +19,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.IForgeRegistry;
+import org.apache.commons.lang3.ArrayUtils;
 import v0id.f0resources.config.F0RConfig;
 import v0id.f0resources.network.F0RNetwork;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class TileDrill extends AbstractDrill implements ITickable
 {
@@ -42,12 +46,12 @@ public class TileDrill extends AbstractDrill implements ITickable
     @Override
     public boolean checkBase()
     {
-        Block block = BLOCK_REGISTRY.getValue(new ResourceLocation(F0RConfig.requiredBlock));
+        Block[] block = Arrays.stream(F0RConfig.requiredBlocks).filter(s -> !Strings.isNullOrEmpty(s)).map(ResourceLocation::new).map(BLOCK_REGISTRY::getValue).filter(Objects::nonNull).toArray(Block[]::new);
         for (int dx = -1; dx <= 1; ++dx)
         {
             for (int dz = -1; dz <= 1; ++dz)
             {
-                if (!this.world.getBlockState(this.pos.add(dx, -1, dz)).getBlock().isAssociatedBlock(block))
+                if (!ArrayUtils.contains(block, this.world.getBlockState(this.pos.add(dx, -1, dz)).getBlock()))
                 {
                     return false;
                 }
