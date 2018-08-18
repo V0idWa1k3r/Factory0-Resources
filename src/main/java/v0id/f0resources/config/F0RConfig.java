@@ -63,6 +63,18 @@ public class F0RConfig
     @Config.Comment("Should the drills work regardless of the blocks underneath them or do they need specific blocks?")
     public static boolean drillsWorkAnywhere = false;
 
+    @Config.Comment("The amount of energy the pump consumes per tick.")
+    @Config.RangeInt(min = 0)
+    public static int pumpEnergyConsumption = 512;
+
+    @Config.Comment("The amount of energy the pump stores in it.")
+    @Config.RangeInt(min = 0)
+    public static int pumpEnergy = 1000000;
+
+    @Config.Comment("The amount of fluid the pump stores in it.")
+    @Config.RangeInt(min = 0)
+    public static int pumpTankStorage = 64000;
+
     @Mod.EventBusSubscriber(modid = F0RRegistryNames.MODID)
     public static class ConfigHandler
     {

@@ -8,25 +8,28 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import v0id.f0resources.F0Resources;
-import v0id.f0resources.tile.AbstractDrill;
+import v0id.f0resources.tile.IAnimated;
 
-public class MessageDrillCenter implements IMessage
+public class MessageAnimationState implements IMessage
 {
     public BlockPos at;
+    public boolean isAnimated;
 
-    public MessageDrillCenter()
+    public MessageAnimationState()
     {
     }
 
-    public MessageDrillCenter(BlockPos at)
+    public MessageAnimationState(BlockPos at, boolean b)
     {
         this.at = at;
+        this.isAnimated = b;
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     {
         this.at = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
+        this.isAnimated = buf.readBoolean();
     }
 
     @Override
@@ -35,12 +38,13 @@ public class MessageDrillCenter implements IMessage
         buf.writeInt(this.at.getX());
         buf.writeInt(this.at.getY());
         buf.writeInt(this.at.getZ());
+        buf.writeBoolean(this.isAnimated);
     }
 
-    public static class Handler implements IMessageHandler<MessageDrillCenter, IMessage>
+    public static class Handler implements IMessageHandler<MessageAnimationState, IMessage>
     {
         @Override
-        public IMessage onMessage(MessageDrillCenter message, MessageContext ctx)
+        public IMessage onMessage(MessageAnimationState message, MessageContext ctx)
         {
             F0Resources.proxy.getContextListener().addScheduledTask(() ->
             {
@@ -49,9 +53,9 @@ public class MessageDrillCenter implements IMessage
                 if (world.isBlockLoaded(pos))
                 {
                     TileEntity tile = world.getTileEntity(pos);
-                    if (tile instanceof AbstractDrill)
+                    if (tile instanceof IAnimated)
                     {
-                        ((AbstractDrill) tile).isCenter = true;
+                        ((IAnimated) tile).setAnimated(message.isAnimated);
                     }
                 }
             });

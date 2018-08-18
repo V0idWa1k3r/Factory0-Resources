@@ -6,10 +6,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import v0id.api.f0resources.data.F0RRegistryNames;
 import v0id.f0resources.config.DrillMaterialEntry;
-import v0id.f0resources.item.ItemDrillHead;
-import v0id.f0resources.item.ItemOreVisualiser;
-import v0id.f0resources.item.ItemProspectorsPick;
-import v0id.f0resources.item.ItemScanner;
+import v0id.f0resources.item.*;
 
 import java.util.Arrays;
 
@@ -24,7 +21,8 @@ public class F0RItemsRegistry
                 new ItemProspectorsPick(true),
                 new ItemScanner(false),
                 new ItemScanner(true),
-                new ItemOreVisualiser()
+                new ItemOreVisualiser(),
+                new ItemDowsingRod()
         );
 
         Arrays.stream(DrillMaterialEntry.allEntries).forEach(e -> event.getRegistry().register(new ItemDrillHead(e)));

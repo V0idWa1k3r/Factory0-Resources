@@ -49,6 +49,14 @@ txt.f0r.prospect.nosuffix.4=Found a large sample
 txt.f0r.prospect.nosuffix.5=Found
 txr.f0r.youAreHere=You Are Here
 txr.f0r.visualizer_amt=Ore: %d/%d
+txt.f0r.dowsing.nothing=Found nothing.
+txt.f0r.dowsing.0=Found traces of
+txt.f0r.dowsing.1=Found a tiny volume of
+txt.f0r.dowsing.2=Found a small volume of
+txt.f0r.dowsing.3=Found a medium volume of
+txt.f0r.dowsing.4=Found a large volume of
+txt.f0r.dowsing.5=Found
+txt.f0r.mbStored=%d/%dmb
 
 item.f0-resources.item_prospectors_pick.name=Prospector's Pick
 item.f0-resources.item_advanced_prospectors_pick.name=Advanced Prospector's Pick
@@ -77,11 +85,13 @@ item.f0-resources.item.drill_head.f0r.tin.name=Tin Drill Head
 item.f0-resources.item_scanner.name=Ore Scanner
 item.f0-resources.item_advanced_scanner.name=Advanced Ore Scanner
 item.f0-resources.item_ore_visualizer.name=Seismic Reader
+item.f0-resources.item_dowsing_rod.name=Dowsing Rod
 
 tile.f0-resources.drill_component.name=Drill Component
 tile.f0-resources.drill_part.name=Deep Core Drill
 tile.f0-resources.burner_drill_component.name=Burner Drill Component
 tile.f0-resources.burner_drill_part.name=Burner Deep Core Drill
+tile.f0-resources.pump_component.name=Fluid Pump Component
 
 itemGroup.f0-resources=Factory0 - Resources
 

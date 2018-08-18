@@ -8,10 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import v0id.api.f0resources.data.F0RBlocks;
 import v0id.api.f0resources.data.F0RRegistryNames;
-import v0id.f0resources.block.BlockBurnerDrillComponent;
-import v0id.f0resources.block.BlockBurnerDrillPart;
-import v0id.f0resources.block.BlockElectricalDrillComponent;
-import v0id.f0resources.block.BlockElectricalDrillPart;
+import v0id.f0resources.block.*;
 
 @Mod.EventBusSubscriber(modid = F0RRegistryNames.MODID)
 public class F0RBlocksRegistry
@@ -23,7 +20,9 @@ public class F0RBlocksRegistry
                 new BlockElectricalDrillComponent(),
                 new BlockElectricalDrillPart(),
                 new BlockBurnerDrillComponent(),
-                new BlockBurnerDrillPart()
+                new BlockBurnerDrillPart(),
+                new BlockPumpComponent(),
+                new BlockPumpPart()
         );
     }
 
@@ -32,7 +31,8 @@ public class F0RBlocksRegistry
     {
         event.getRegistry().registerAll(
                 new ItemBlock(F0RBlocks.drillComponent).setRegistryName(F0RBlocks.drillComponent.getRegistryName()),
-                new ItemBlock(F0RBlocks.burnerDrillComponent).setRegistryName(F0RBlocks.burnerDrillComponent.getRegistryName())
+                new ItemBlock(F0RBlocks.burnerDrillComponent).setRegistryName(F0RBlocks.burnerDrillComponent.getRegistryName()),
+                new ItemBlock(F0RBlocks.pumpComponent).setRegistryName(F0RBlocks.pumpComponent.getRegistryName())
         );
     }
 }

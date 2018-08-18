@@ -8,6 +8,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import v0id.api.f0resources.data.F0RRegistryNames;
 import v0id.f0resources.tile.TileBurnerDrill;
 import v0id.f0resources.tile.TileDrill;
+import v0id.f0resources.tile.TileFluidPump;
 
 @Mod.EventBusSubscriber(modid = F0RRegistryNames.MODID)
 public class F0RTileRegistry
@@ -17,5 +18,6 @@ public class F0RTileRegistry
     {
         GameRegistry.registerTileEntity(TileDrill.class, F0RRegistryNames.asLocation("drill"));
         GameRegistry.registerTileEntity(TileBurnerDrill.class, F0RRegistryNames.asLocation("burner_drill"));
+        GameRegistry.registerTileEntity(TileFluidPump.class, F0RRegistryNames.asLocation("fluid_pump"));
     }
 }

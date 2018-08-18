@@ -5,17 +5,18 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.util.Constants;
 import v0id.api.f0resources.world.IChunkData;
+import v0id.api.f0resources.world.IFluidData;
 import v0id.api.f0resources.world.IOreData;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Spliterator;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.StreamSupport;
 
 public class ChunkData implements IChunkData
 {
     public List<OreData> oreData = Lists.newArrayList();
+    public List<FluidData> fluidData = Lists.newArrayList();
 
     @Override
     public void addOreData(IOreData data)
@@ -50,15 +51,65 @@ public class ChunkData implements IChunkData
     }
 
     @Override
+    public int getFluidLength()
+    {
+        return this.fluidData.size();
+    }
+
+    @Override
     public IOreData getOreData(int i)
     {
         return this.oreData.get(i);
     }
 
     @Override
+    public IFluidData getFluidData(int i)
+    {
+        return this.fluidData.get(i);
+    }
+
+    @Override
+    public void addFluidData(IFluidData data)
+    {
+        if (data instanceof FluidData)
+        {
+            fluidData.add((FluidData) data);
+        }
+        else
+        {
+            throw new UnsupportedOperationException("Unknown fluid data type passed, please use FluidData!");
+        }
+    }
+
+    @Override
+    public void removeFluidData(IFluidData data)
+    {
+        if (data instanceof FluidData)
+        {
+            fluidData.remove(data);
+        }
+        else
+        {
+            throw new UnsupportedOperationException("Unknown fluid data type passed, please use FluidData!");
+        }
+    }
+
+    @Override
     public Spliterator<IOreData> spliterator()
     {
         return this.oreData.stream().map(e -> (IOreData)e).spliterator();
+    }
+
+    @Override
+    public Spliterator<IFluidData> fluidSpliterator()
+    {
+        return this.fluidData.stream().map(e -> (IFluidData)e).spliterator();
+    }
+
+    @Override
+    public Iterator<IFluidData> fluidIterator()
+    {
+        return this.fluidData.stream().map(e -> (IFluidData)e).iterator();
     }
 
     @Override
@@ -74,6 +125,9 @@ public class ChunkData implements IChunkData
         NBTTagList lst = new NBTTagList();
         this.oreData.stream().map(OreData::serializeNBT).forEach(lst::appendTag);
         ret.setTag("data", lst);
+        NBTTagList lst2 = new NBTTagList();
+        this.fluidData.stream().map(FluidData::serializeNBT).forEach(lst2::appendTag);
+        ret.setTag("fdata", lst2);
         return ret;
     }
 
@@ -81,12 +135,21 @@ public class ChunkData implements IChunkData
     public void deserializeNBT(NBTTagCompound nbt)
     {
         NBTTagList lst = nbt.getTagList("data", Constants.NBT.TAG_COMPOUND);
+        NBTTagList lst2 = nbt.getTagList("fdata", Constants.NBT.TAG_COMPOUND);
         this.oreData.clear();
         StreamSupport.stream(lst.spliterator(), false).map(e -> (NBTTagCompound) e).forEach(e ->
         {
             OreData data = new OreData();
             data.deserializeNBT(e);
             this.oreData.add(data);
+        });
+
+        this.fluidData.clear();
+        StreamSupport.stream(lst2.spliterator(), false).map(e -> (NBTTagCompound) e).forEach(e ->
+        {
+            FluidData data = new FluidData();
+            data.deserializeNBT(e);
+            this.fluidData.add(data);
         });
     }
 }

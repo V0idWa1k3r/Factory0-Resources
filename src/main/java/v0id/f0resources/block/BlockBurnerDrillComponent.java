@@ -80,7 +80,7 @@ public class BlockBurnerDrillComponent extends Block
                             if (dx == 0 && dz == 0 && dy == 0)
                             {
                                 tbd.isCenter = true;
-                                F0RNetwork.sendDrillCenter(tbd);
+                                F0RNetwork.sendMultiblockCenter(tbd);
                             }
                         }
                     }

@@ -8,11 +8,14 @@ import net.minecraftforge.fml.common.network.IGuiHandler;
 import v0id.f0resources.client.gui.GuiBurnerDrill;
 import v0id.f0resources.client.gui.GuiDrill;
 import v0id.f0resources.client.gui.GuiOreVisualizer;
+import v0id.f0resources.client.gui.GuiPump;
 import v0id.f0resources.inventory.ContainerBurnerDrill;
 import v0id.f0resources.inventory.ContainerDrill;
 import v0id.f0resources.inventory.ContainerOreVisualizer;
+import v0id.f0resources.inventory.ContainerPump;
 import v0id.f0resources.tile.TileBurnerDrill;
 import v0id.f0resources.tile.TileDrill;
+import v0id.f0resources.tile.TileFluidPump;
 
 import javax.annotation.Nullable;
 
@@ -39,6 +42,11 @@ public class GuiHandler implements IGuiHandler
             {
                 return new ContainerOreVisualizer(player.inventory);
             }
+
+            case 3:
+            {
+                return new ContainerPump(player.inventory, (TileFluidPump) tile);
+            }
         }
 
         return null;
@@ -64,6 +72,11 @@ public class GuiHandler implements IGuiHandler
             case 2:
             {
                 return new GuiOreVisualizer(player.inventory);
+            }
+
+            case 3:
+            {
+                return new GuiPump(player.inventory, (TileFluidPump) tile);
             }
         }
 

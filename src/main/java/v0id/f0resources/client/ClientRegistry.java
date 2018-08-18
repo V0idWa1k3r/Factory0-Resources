@@ -14,14 +14,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import v0id.api.f0resources.data.F0RBlocks;
 import v0id.api.f0resources.data.F0RItems;
 import v0id.api.f0resources.data.F0RRegistryNames;
-import v0id.f0resources.client.render.tile.TESRBurnerDrill;
-import v0id.f0resources.client.render.tile.TESRBurnerDrillSlow;
-import v0id.f0resources.client.render.tile.TESRDrill;
-import v0id.f0resources.client.render.tile.TESRDrillSlow;
+import v0id.f0resources.client.render.tile.*;
 import v0id.f0resources.config.F0RConfig;
 import v0id.f0resources.item.ItemDrillHead;
 import v0id.f0resources.tile.TileBurnerDrill;
 import v0id.f0resources.tile.TileDrill;
+import v0id.f0resources.tile.TileFluidPump;
 
 @Mod.EventBusSubscriber(modid = F0RRegistryNames.MODID, value = { Side.CLIENT })
 public class ClientRegistry
@@ -34,9 +32,11 @@ public class ClientRegistry
         registerStaticModel(F0RItems.advancedProspectorsPick, new ModelResourceLocation(F0RItems.advancedProspectorsPick.getRegistryName(), "inventory"));
         registerStaticModel(F0RItems.scanner, new ModelResourceLocation(F0RItems.scanner.getRegistryName(), "inventory"));
         registerStaticModel(F0RItems.advancedScanner, new ModelResourceLocation(F0RItems.advancedScanner.getRegistryName(), "inventory"));
+        registerStaticModel(F0RItems.dowsingRod, new ModelResourceLocation(F0RItems.dowsingRod.getRegistryName(), "inventory"));
         ItemDrillHead.allDrillHeads.stream().forEach(e -> registerStaticModel(e, new ModelResourceLocation(F0RRegistryNames.asLocation("item_drill_head"), "inventory")));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(F0RBlocks.drillComponent), 0, new ModelResourceLocation(F0RBlocks.drillComponent.getRegistryName(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(F0RBlocks.burnerDrillComponent), 0, new ModelResourceLocation(F0RBlocks.burnerDrillComponent.getRegistryName(), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(F0RBlocks.pumpComponent), 0, new ModelResourceLocation(F0RBlocks.pumpComponent.getRegistryName(), "inventory"));
         ModelLoader.setCustomModelResourceLocation(F0RItems.oreVisualizer, 0, new ModelResourceLocation(F0RItems.oreVisualizer.getRegistryName(), "inventory"));
     }
 
@@ -44,6 +44,7 @@ public class ClientRegistry
     {
         net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(TileDrill.class, F0RConfig.useFastTESR ? new TESRDrill() : new TESRDrillSlow());
         net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(TileBurnerDrill.class, F0RConfig.useFastTESR ? new TESRBurnerDrill() : new TESRBurnerDrillSlow());
+        net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(TileFluidPump.class, F0RConfig.useFastTESR ? new TESRPump() : new TESRPumpSlow());
     }
 
     public static void registerColours()
@@ -62,5 +63,6 @@ public class ClientRegistry
     {
         TESRDrill.texture = event.getMap().registerSprite(new ResourceLocation("f0-resources", "blocks/drill"));
         TESRBurnerDrill.texture = event.getMap().registerSprite(new ResourceLocation("f0-resources", "blocks/burner_drill"));
+        TESRPump.texture = event.getMap().registerSprite(new ResourceLocation("f0-resources", "blocks/fluid_pump"));
     }
 }

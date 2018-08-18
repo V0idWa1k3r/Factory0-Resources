@@ -11,14 +11,14 @@ import v0id.api.f0resources.data.F0RBlocks;
 import v0id.api.f0resources.data.F0RCreativeTabs;
 import v0id.api.f0resources.data.F0RRegistryNames;
 import v0id.f0resources.network.F0RNetwork;
-import v0id.f0resources.tile.TileDrill;
+import v0id.f0resources.tile.TileFluidPump;
 
-public class BlockElectricalDrillComponent extends Block
+public class BlockPumpComponent extends Block
 {
-    public BlockElectricalDrillComponent()
+    public BlockPumpComponent()
     {
         super(Material.IRON);
-        this.setRegistryName(F0RRegistryNames.asLocation(F0RRegistryNames.drillComponent));
+        this.setRegistryName(F0RRegistryNames.asLocation(F0RRegistryNames.pumpComponent));
         this.setUnlocalizedName(this.getRegistryName().toString().replace(':', '.'));
         this.setHardness(3);
         this.setResistance(10);
@@ -91,16 +91,26 @@ public class BlockElectricalDrillComponent extends Block
             }
         }
 
+        BlockPos atP = pos;
+        while (isComponent(worldIn, atP.down()))
+        {
+            center = center.down();
+            atP = atP.down();
+        }
+
         if (center != BlockPos.ORIGIN)
         {
             for (int dx = -1; dx <= 1; ++dx)
             {
                 for (int dz = -1; dz <= 1; ++dz)
                 {
-                    BlockPos at = center.add(dx, 0, dz);
-                    if (!isComponent(worldIn, at))
+                    for (int dy = 0; dy < 3; ++dy)
                     {
-                        return;
+                        BlockPos at = center.add(dx, dy, dz);
+                        if (!isComponent(worldIn, at))
+                        {
+                            return;
+                        }
                     }
                 }
             }
@@ -109,14 +119,17 @@ public class BlockElectricalDrillComponent extends Block
             {
                 for (int dz = -1; dz <= 1; ++dz)
                 {
-                    BlockPos at = center.add(dx, 0, dz);
-                    worldIn.setBlockState(at, F0RBlocks.drillPart.getDefaultState());
-                    TileDrill tile = (TileDrill) worldIn.getTileEntity(at);
-                    tile.centerPos = center;
-                    if (dx == 0 && dz == 0)
+                    for (int dy = 0; dy < 3; ++dy)
                     {
-                        tile.isCenter = true;
-                        F0RNetwork.sendMultiblockCenter(tile);
+                        BlockPos at = center.add(dx, dy, dz);
+                        worldIn.setBlockState(at, F0RBlocks.pumpPart.getDefaultState());
+                        TileFluidPump tile = (TileFluidPump) worldIn.getTileEntity(at);
+                        tile.centerPos = center;
+                        if (dx == 0 && dz == 0 && dy == 0)
+                        {
+                            tile.isCenter = true;
+                            F0RNetwork.sendMultiblockCenter(tile);
+                        }
                     }
                 }
             }
@@ -125,6 +138,6 @@ public class BlockElectricalDrillComponent extends Block
 
     private static boolean isComponent(World world, BlockPos pos)
     {
-        return world.getBlockState(pos).getBlock() == F0RBlocks.drillComponent;
+        return world.getBlockState(pos).getBlock() == F0RBlocks.pumpComponent;
     }
 }

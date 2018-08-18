@@ -20,4 +20,7 @@ public class F0RItems
 
     @GameRegistry.ObjectHolder(F0RRegistryNames.oreVisualizer)
     public static final Item oreVisualizer = null;
+
+    @GameRegistry.ObjectHolder(F0RRegistryNames.dowsingRod)
+    public static final Item dowsingRod = null;
 }

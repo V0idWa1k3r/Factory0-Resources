@@ -1,0 +1,24 @@
+{
+  "result": {
+    "item": "f0-resources:pump_component",
+    "data": 0,
+    "count": 9
+  },
+  "pattern": [
+    "ISI",
+    "IDI",
+    "ISI"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "I": {
+      "item": "#BLOCKIRON"
+    },
+    "D": {
+      "item": "#DIAMOND"
+    },
+    "S": {
+      "item": "#BLOCKSTONE"
+    }
+  }
+}

@@ -18,6 +18,7 @@ import v0id.api.f0resources.data.F0RRegistryNames;
 import v0id.api.f0resources.world.F0RWorldCapability;
 import v0id.f0resources.capability.FuelHandler;
 import v0id.f0resources.config.DrillMaterialEntry;
+import v0id.f0resources.config.FluidEntry;
 import v0id.f0resources.config.OreEntry;
 import v0id.f0resources.handler.GuiHandler;
 import v0id.f0resources.network.F0RNetwork;
@@ -67,6 +68,7 @@ public class F0Resources
     {
         setDevEnvironment();
         OreEntry.parse();
+        FluidEntry.parse();
         DrillMaterialEntry.parse();
         F0RWorldCapability.register();
         F0RNetwork.loadClass();
@@ -78,6 +80,7 @@ public class F0Resources
     public void init(FMLInitializationEvent event)
     {
         Arrays.stream(OreEntry.allEntries).forEach(OreEntry::validate);
+        Arrays.stream(FluidEntry.allEntries).forEach(FluidEntry::validate);
         F0ROreDictRegistry.register();
         proxy.init(event);
     }

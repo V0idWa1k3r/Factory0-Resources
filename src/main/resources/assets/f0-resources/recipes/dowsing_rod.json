@@ -1,0 +1,18 @@
+{
+    "result": {
+        "item": "f0-resources:item_dowsing_rod",
+        "data": 0
+    },
+    "pattern": [
+        "SBS"
+    ],
+    "type": "forge:ore_shaped",
+    "key": {
+        "S": {
+            "item": "#STICK"
+        },
+        "B": {
+            "item": "minecraft:bucket"
+        }
+    }
+}

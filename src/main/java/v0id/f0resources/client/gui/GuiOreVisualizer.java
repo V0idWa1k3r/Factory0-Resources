@@ -16,12 +16,16 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.lwjgl.opengl.GL11;
 import v0id.api.f0resources.data.F0RTextures;
 import v0id.f0resources.chunk.ChunkData;
 import v0id.f0resources.chunk.ChunkOreGenerator;
+import v0id.f0resources.chunk.FluidData;
 import v0id.f0resources.chunk.OreData;
+import v0id.f0resources.config.FluidEntry;
 import v0id.f0resources.config.OreEntry;
 import v0id.f0resources.inventory.ContainerOreVisualizer;
 
@@ -32,6 +36,7 @@ public class GuiOreVisualizer extends GuiContainer
     public static long worldSeed;
 
     public OreEntry entry;
+    public FluidEntry fluidEntry;
     public ChunkUIData[][] uiArray = new ChunkUIData[15][15];
     public int chunkIndex = 0;
     public ItemStack lastItemStack = ItemStack.EMPTY;
@@ -80,6 +85,15 @@ public class GuiOreVisualizer extends GuiContainer
                         buf.pos(i + 58 + (x << 2) + 4, j + 15 + (z << 2) + 4, 1).color(1F, 1F, 1F, val).endVertex();
                         buf.pos(i + 58 + (x << 2) + 4, j + 15 + (z << 2), 1).color(1F, 1F, 1F, val).endVertex();
                     }
+
+                    if (data.oreAmount != 0 && this.fluidEntry != null)
+                    {
+                        float val =  (float)data.oreAmount / this.fluidEntry.fluidMaximum;
+                        buf.pos(i + 58 + (x << 2), j + 15 + (z << 2), 1).color(0F, 0F, 1F, val).endVertex();
+                        buf.pos(i + 58 + (x << 2), j + 15 + (z << 2) + 4, 1).color(0F, 0F, 1F, val).endVertex();
+                        buf.pos(i + 58 + (x << 2) + 4, j + 15 + (z << 2) + 4, 1).color(0F, 1F, 1F, val).endVertex();
+                        buf.pos(i + 58 + (x << 2) + 4, j + 15 + (z << 2), 1).color(0F, 0F, 1F, val).endVertex();
+                    }
                 }
             }
         }
@@ -117,6 +131,11 @@ public class GuiOreVisualizer extends GuiContainer
                     lst.add(I18n.format("txr.f0r.visualizer_amt", data.oreAmount, entry.oreMaximum));
                 }
 
+                if (this.fluidEntry != null)
+                {
+                    lst.add(I18n.format("txr.f0r.visualizer_amt", data.oreAmount, this.fluidEntry.fluidMaximum));
+                }
+
                 this.drawHoveringText(lst, mouseX, mouseY);
             }
         }
@@ -138,15 +157,29 @@ public class GuiOreVisualizer extends GuiContainer
         if (current != this.lastItemStack)
         {
             OreEntry entry = null;
+            FluidEntry fluidEntry = null;
             if (!current.isEmpty())
             {
                 entry = OreEntry.findByItem(current.getItem(), current.getMetadata());
+                IFluidHandlerItem itemFluidHandler = current.getCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null);
+                if (itemFluidHandler != null && itemFluidHandler.getTankProperties().length > 0 && itemFluidHandler.getTankProperties()[0].getContents() != null)
+                {
+                    fluidEntry = FluidEntry.findByFluid(itemFluidHandler.getTankProperties()[0].getContents().getFluid());
+                }
             }
 
             if (entry != this.entry)
             {
                 this.entry = entry;
                 this.createOresForData();
+            }
+            else
+            {
+                if (fluidEntry != this.fluidEntry)
+                {
+                    this.fluidEntry = fluidEntry;
+                    this.createOresForData();
+                }
             }
         }
 
@@ -173,17 +206,32 @@ public class GuiOreVisualizer extends GuiContainer
                 }
             }
 
-            int value = 0;
-            if (this.entry != null)
+            long value = 0;
+            if (this.entry != null || this.fluidEntry != null)
             {
                 ChunkData dummy = new ChunkData();
                 ChunkOreGenerator.generateData(worldSeed, w.provider.getDimension(), cPos, dummy);
-                for (OreData dat : dummy.oreData)
+                if (this.entry != null)
                 {
-                    if (dat.oreBlock == item && dat.oreMeta == this.entry.oreMeta)
+                    for (OreData dat : dummy.oreData)
                     {
-                        value = dat.amount;
-                        break;
+                        if (dat.oreBlock == item && dat.oreMeta == this.entry.oreMeta)
+                        {
+                            value = dat.amount;
+                            break;
+                        }
+                    }
+                }
+
+                if (this.fluidEntry != null)
+                {
+                    for (FluidData dat : dummy.fluidData)
+                    {
+                        if (dat.fluid.getName().equalsIgnoreCase(this.fluidEntry.fluidID))
+                        {
+                            value = dat.amount;
+                            break;
+                        }
                     }
                 }
             }
@@ -204,24 +252,40 @@ public class GuiOreVisualizer extends GuiContainer
                 ChunkUIData data = this.uiArray[dx][dz];
                 if (data != null)
                 {
-                    if (this.entry == null)
+                    if (this.entry == null && this.fluidEntry == null)
                     {
                         data.oreAmount = 0;
                     }
                     else
                     {
-
                         World w = Minecraft.getMinecraft().world;
                         ChunkPos cPos = new ChunkPos(Minecraft.getMinecraft().player.getPosition());
                         cPos = new ChunkPos(cPos.x + (dx - 7), cPos.z + (dz - 7));
                         ChunkData dummy = new ChunkData();
                         ChunkOreGenerator.generateData(worldSeed, w.provider.getDimension(), cPos, dummy);
-                        for (OreData dat : dummy.oreData)
+                        if (this.entry != null)
                         {
-                            if (dat.oreBlock == item && dat.oreMeta == this.entry.oreMeta)
+                            for (OreData dat : dummy.oreData)
                             {
-                                data.oreAmount = dat.amount;
-                                break;
+                                if (dat.oreBlock == item && dat.oreMeta == this.entry.oreMeta)
+                                {
+                                    data.oreAmount = dat.amount;
+                                    break;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (this.fluidEntry != null)
+                            {
+                                for (FluidData dat : dummy.fluidData)
+                                {
+                                    if (dat.fluid.getName().equalsIgnoreCase(this.fluidEntry.fluidID))
+                                    {
+                                        data.oreAmount = dat.amount;
+                                        break;
+                                    }
+                                }
                             }
                         }
                     }
@@ -233,9 +297,9 @@ public class GuiOreVisualizer extends GuiContainer
     public static class ChunkUIData
     {
         public int[] buffer;
-        public int oreAmount;
+        public long oreAmount;
 
-        public ChunkUIData(int[] buffer, int oreAmount)
+        public ChunkUIData(int[] buffer, long oreAmount)
         {
             this.buffer = buffer;
             this.oreAmount = oreAmount;

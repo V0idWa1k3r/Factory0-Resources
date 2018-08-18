@@ -17,4 +17,10 @@ public class F0RBlocks
 
     @GameRegistry.ObjectHolder(F0RRegistryNames.burnerDrillPart)
     public static final Block burnerDrillPart = null;
+
+    @GameRegistry.ObjectHolder(F0RRegistryNames.pumpComponent)
+    public static final Block pumpComponent = null;
+
+    @GameRegistry.ObjectHolder(F0RRegistryNames.pumpPart)
+    public static final Block pumpPart = null;
 }

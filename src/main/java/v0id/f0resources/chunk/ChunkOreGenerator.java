@@ -4,10 +4,12 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 import v0id.api.f0resources.noise.SimplexNoise2D;
 import v0id.f0resources.config.F0RConfig;
+import v0id.f0resources.config.FluidEntry;
 import v0id.f0resources.config.OreEntry;
 
 import java.util.Random;
@@ -42,6 +44,26 @@ public class ChunkOreGenerator
                     oreData.tierReq = (byte) oreEntry.tierReq;
                     oreData.amount = (int) (noise * oreEntry.oreMaximum);
                     data.addOreData(oreData);
+                }
+            }
+        }
+
+        for (FluidEntry fluidEntry : FluidEntry.allEntries)
+        {
+            if (fluidEntry.valid && fluidEntry.canGenerateIn(dimension))
+            {
+                RANDOM.setSeed(seed | fluidEntry.seed);
+                double offsetX = RANDOM.nextDouble();
+                double offsetZ = RANDOM.nextDouble();
+                offsetX += (double) pos.x / F0RConfig.noiseChunkDivider * fluidEntry.stretchX;
+                offsetZ += (double) pos.z / F0RConfig.noiseChunkDivider * fluidEntry.stretchZ;
+                double noise = SimplexNoise2D.noise(offsetX, offsetZ) * fluidEntry.valueModifier;
+                if (noise >= fluidEntry.fluidMinimum)
+                {
+                    FluidData fluidData = new FluidData();
+                    fluidData.fluid = FluidRegistry.getFluid(fluidEntry.fluidID);
+                    fluidData.amount = fluidData.generatedAmount = (int) (noise * fluidEntry.fluidMaximum);
+                    data.addFluidData(fluidData);
                 }
             }
         }

@@ -8,28 +8,25 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import v0id.f0resources.F0Resources;
-import v0id.f0resources.tile.AbstractDrill;
+import v0id.f0resources.tile.TileMultiblock;
 
-public class MessageDrillRotating implements IMessage
+public class MessageMultiblockCenter implements IMessage
 {
     public BlockPos at;
-    public boolean isRotating;
 
-    public MessageDrillRotating()
+    public MessageMultiblockCenter()
     {
     }
 
-    public MessageDrillRotating(BlockPos at, boolean b)
+    public MessageMultiblockCenter(BlockPos at)
     {
         this.at = at;
-        this.isRotating = b;
     }
 
     @Override
     public void fromBytes(ByteBuf buf)
     {
         this.at = new BlockPos(buf.readInt(), buf.readInt(), buf.readInt());
-        this.isRotating = buf.readBoolean();
     }
 
     @Override
@@ -38,13 +35,12 @@ public class MessageDrillRotating implements IMessage
         buf.writeInt(this.at.getX());
         buf.writeInt(this.at.getY());
         buf.writeInt(this.at.getZ());
-        buf.writeBoolean(this.isRotating);
     }
 
-    public static class Handler implements IMessageHandler<MessageDrillRotating, IMessage>
+    public static class Handler implements IMessageHandler<MessageMultiblockCenter, IMessage>
     {
         @Override
-        public IMessage onMessage(MessageDrillRotating message, MessageContext ctx)
+        public IMessage onMessage(MessageMultiblockCenter message, MessageContext ctx)
         {
             F0Resources.proxy.getContextListener().addScheduledTask(() ->
             {
@@ -53,9 +49,9 @@ public class MessageDrillRotating implements IMessage
                 if (world.isBlockLoaded(pos))
                 {
                     TileEntity tile = world.getTileEntity(pos);
-                    if (tile instanceof AbstractDrill)
+                    if (tile instanceof TileMultiblock)
                     {
-                        ((AbstractDrill) tile).isRotating = message.isRotating;
+                        ((TileMultiblock) tile).isCenter = true;
                     }
                 }
             });

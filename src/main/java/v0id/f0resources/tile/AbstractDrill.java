@@ -28,13 +28,11 @@ import v0id.f0resources.util.OreItem;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
-public abstract class AbstractDrill extends TileEntity implements ITickable
+public abstract class AbstractDrill extends TileMultiblock implements ITickable, IAnimated
 {
     public BlockPos outputPos = BlockPos.ORIGIN;
     public boolean isRotating;
     public float progress;
-    public BlockPos centerPos = BlockPos.ORIGIN;
-    public boolean isCenter = false;
     public ItemStack minedOre = ItemStack.EMPTY;
     public float minedMultiplier = 1F;
 
@@ -239,8 +237,20 @@ public abstract class AbstractDrill extends TileEntity implements ITickable
         if (this.isRotating != b)
         {
             this.isRotating = b;
-            F0RNetwork.sendDrillRotating(this);
+            F0RNetwork.sendAnimationState(this);
         }
+    }
+
+    @Override
+    public void setAnimated(boolean b)
+    {
+        this.setRotating(b);
+    }
+
+    @Override
+    public boolean isAnimated()
+    {
+        return this.isRotating;
     }
 
     public abstract ItemStack getDrillHead();

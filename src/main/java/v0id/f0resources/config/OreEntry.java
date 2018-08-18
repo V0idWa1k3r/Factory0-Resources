@@ -1,9 +1,6 @@
 package v0id.f0resources.config;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.FMLCommonHandler;
@@ -106,7 +103,7 @@ public class OreEntry
                 JsonArray array = new JsonParser().parse(contents).getAsJsonArray();
                 allEntries = new OreEntry[array.size()];
                 AtomicInteger aint = new AtomicInteger(0);
-                StreamSupport.stream(array.spliterator(), false).map(e -> e.getAsJsonObject()).forEach(o -> allEntries[aint.getAndIncrement()] = GSON.fromJson(o, OreEntry.class));
+                StreamSupport.stream(array.spliterator(), false).map(JsonElement::getAsJsonObject).forEach(o -> allEntries[aint.getAndIncrement()] = GSON.fromJson(o, OreEntry.class));
             }
             else
             {
