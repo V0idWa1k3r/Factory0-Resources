@@ -1,6 +1,5 @@
 package v0id.f0resources.server;
 
-import net.minecraft.client.resources.I18n;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
@@ -28,7 +27,7 @@ public class CommandF0R extends CommandBase
     @Override
     public String getUsage(ICommandSender sender)
     {
-        return I18n.format("txt.f0r.command.usage");
+        return "txt.f0r.command.usage";
     }
 
     @Override
